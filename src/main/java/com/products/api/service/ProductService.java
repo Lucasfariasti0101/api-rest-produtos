@@ -43,4 +43,33 @@ public class ProductService {
         return new ProductDTO(product);
 
     }
+
+    @Transactional
+    public void deleteProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setId(productDTO.getId());
+        product.setName(productDTO.getName());
+        product.setQuantity(productDTO.getQuantity());
+        product.setValue(productDTO.getValue());
+        try {
+            productRepository.delete(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Transactional
+    public ProductDTO updateProduct(ProductDTO productDTO) {
+        Product product = new Product(productDTO.getId(), productDTO.getName(),
+                productDTO.getQuantity(), productDTO.getValue());
+
+        try {
+            productRepository.save(product);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ProductDTO(product);
+    }
+
 }
