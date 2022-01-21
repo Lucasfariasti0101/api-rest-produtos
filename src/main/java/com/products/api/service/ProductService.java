@@ -28,4 +28,19 @@ public class ProductService {
         }
         return null;
     }
+
+    @Transactional
+    public ProductDTO saveProduct(ProductDTO productDTO) {
+        Product product = new Product();
+
+        product.setId(productDTO.getId());
+        product.setName(productDTO.getName());
+        product.setQuantity(productDTO.getQuantity());
+        product.setValue(productDTO.getValue());
+
+        product = productRepository.save(product);
+
+        return new ProductDTO(product);
+
+    }
 }
